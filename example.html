@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script type="text/javascript" src="ipCountryApi.js"></script>
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+			$("body").text("Country code resolving...");
+			ipCountryApi.servers = [
+				{
+					"url": "https://ipapi.co/json/",
+					returnCountry: function(data){
+						return data.country
+					}
+				},
+				{
+					"url": "http://ip-api.com/json",
+					returnCountry: function(data){
+						return data.countryCode
+					}
+				}
+			];
+			ipCountryApi.init(function(country){
+				console.log("country", country);
+				$("body").text("Your country code: " + country);
+			}, function(){
+				$("body").text("Hiç bir server çalışmadı");
+			});
+			ipCountryApi.getCountry();
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
